@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<title>SOC Calculator</title>
+</head>
+<body>
+	<label>Current Level 
+	<input name="currentLvl" type="number" min="1" max="9999" step="1" value="1" id="currentLvl"/>
+	</label>
+	<br>
+	<label>Desired Level
+	<input name="targetLvl" type="number" min="1" max="9999" step="1" value="1" id="targetLvl"/>
+	</label>
+	<br>
+	<button onclick="clickCalculate()">Calculate</button>
+
+	<script type = "text/javascript">
+		function clickCalculate() {
+			let currentLvl = parseInt(document.getElementById("currentLvl").value);
+			let targetLvl  = parseInt(document.getElementById("targetLvl").value);
+			if (currentLvl >= targetLvl || currentLvl < 1) {
+				alert("Input error.")
+				return
+			}
+			let cost = getRangeLevelUp(currentLvl, targetLvl)
+			alert(cost + " tags to level up from lvl " + currentLvl + " to " + targetLvl)
+		}
+		function getRangeLevelUp(currentLvl, targetLvl) {
+			let total = 0
+			for (let i = currentLvl; i < targetLvl; i++) {
+				total += getOneLevelUp(i)
+			}
+			return total
+		}
+		function getOneLevelUp(currentLvl) {
+			return (currentLvl * currentLvl) + 10
+		}
+	</script>
+</body>
+</html>
