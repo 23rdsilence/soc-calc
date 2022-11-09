@@ -1,40 +1,123 @@
 <!DOCTYPE html>
-<head>
-	<meta charset="utf-8" />
-	<title>SOC Calculator</title>
-</head>
-<body>
-	<label>Current Level 
-	<input name="currentLvl" type="number" min="1" max="9999" step="1" value="1" id="currentLvl"/>
-	</label>
-	<br>
-	<label>Desired Level
-	<input name="targetLvl" type="number" min="1" max="9999" step="1" value="1" id="targetLvl"/>
-	</label>
-	<br>
-	<button onclick="clickCalculate()">Calculate</button>
+<html>
+ <head>
+ <title>Level Up Calculator</title>
+  </head>
 
-	<script type = "text/javascript">
-		function clickCalculate() {
-			let currentLvl = parseInt(document.getElementById("currentLvl").value);
-			let targetLvl  = parseInt(document.getElementById("targetLvl").value);
-			if (currentLvl >= targetLvl || currentLvl < 1) {
-				alert("Input error.")
-				return
-			}
-			let cost = getRangeLevelUp(currentLvl, targetLvl)
-			alert(cost + " tags to level up from lvl " + currentLvl + " to " + targetLvl)
-		}
-		function getRangeLevelUp(currentLvl, targetLvl) {
-			let total = 0
-			for (let i = currentLvl; i < targetLvl; i++) {
-				total += getOneLevelUp(i)
-			}
-			return total
-		}
-		function getOneLevelUp(currentLvl) {
-			return (currentLvl * currentLvl) + 10
-		}
-	</script>
-</body>
-</html>
+  <body>
+  <font size="1" color="blue">
+    <div style="width: 100%;">
+      <div style="float:left; width: 50%">
+        Current Level :<br>
+        <input type="number" id="Text1" name="TextBox1" style="width: 100px;">
+        <br>Level You Want :<br>
+        <input type="number" id="Text2" name="TextBox2" style="width: 100px;">
+        <br>Tags Needed :<br>
+        <input type="number" id="txtresult" name="TextBox3" style="width: 100px;"><br>
+        <input type="button" name="clickbtn" value="Calculate" onclick="calculate()"><br>
+        <br><u><b>Maxed stats</b></u>
+        <input type="checkbox" id="cbox1" value="first_checkbox" checked>
+        <br> Upgrades:
+        <input type="number" id="upgrades" name="TextBox4" style="width: 50px;">
+        <br> Health:
+        <input type="number" id="health" name="TextBox5" style="width: 50px;">
+        <br> Energy:
+        <input type="number" id="energy" name="TextBox6" style="width: 50px;">
+        <br> Strength:
+        <input type="number" id="strength" name="TextBox7" style="width: 50px;">
+        <br> Total:
+        <input type="number" id="total" name="TextBox8" style="width: 50px;"><br>
+        <b>Jump And Stats:</b>
+        <input type="number" id="jumpmax" name="jumpmax" style="width: 50px;"><br>
+        <br><u><b>Info</b></u>
+        <br> Level: <input type="number" id="infolevel" name="infolevel" style="width: 50px;">
+        <br> Health: <input type="number" id="infohealth" name="infobox" style="width: 50px;">
+        <br> Energy: <input type="number" id="inforenergy" name="infoenergy" style="width: 50px;">
+        <br> Strength: <input type="number" id="infostrength" name="infostrength" style="width: 50px;">
+        <br> Condition Upgrade: <input type="number" id="infoupgrade" name="infoupgrade" style="width: 50px;">
+      </div>
+      
+      <div style="float:right;">
+        <b><u>Vip To Tags</u></b>
+        <br>Vip: <br>
+        <input type="number" id="vip2" name="VipBox2" style="width: 50px;">
+        <br>Tags: <br>
+        <input type="number" id="tags2" name="TagsBox2" style="width: 50px;"><br>
+        <input type="button" name="clickbtn3" value="Calculate" onclick="VipToTags()"><br>
+        
+        <br><b><u>Tags To Vip</u></b>
+        <br>Tags: <br>
+        <input type="number" id="tags1" name="TagsBox1" style="width: 50px;">
+        <br>Vip: <br>
+        <input type="number" id="vip1" name="VipBox1" style="width: 50px;"><br>
+        <input type="button" name="clickbtn2" value="Calculate" onclick="TagsToVip()"><br>
+        
+        <br><b><u>Condition Upgrade</u></b><br>
+        Current: <input type="number" id="curcon" name="CurCon" style="width: 50px;"><br>
+        Wanted: <input type="number" id="wancon" name="WanCon" style="width: 50px;"><br>
+        Upgrade Kits: <input type="number" id="upkit" name="UpKit" style="width: 50px;"><br>
+        Tags: <input type="number" id="contag" name="ConTag" style="width: 50px;"><br>
+        <input type="button" name="clickbtn4" value="Calculate" onclick="ConUpgrade()"><br>
+      </div>
+    </div>
+    </font>
+
+    <script>
+      function calculate() {
+        var cur = parseInt(document.getElementById("Text1").value);
+        var des = parseInt(document.getElementById("Text2").value);
+        var result = ((((des-1)*(des)*(2*(des-1)+1))/6)+(des-1)*10+10)-((((cur-1)*(cur)*(2*(cur-1)+1))/6)+(cur-1)*10+10);
+        var curupg = Math.ceil(cur*3/2);
+        var desupg = Math.ceil(des*3/2);
+        var upgrades = desupg-curupg;
+        var health = upgrades*59;
+        var enegry = upgrades*65;
+        var strength = (des-cur)*70;
+        var total = health+enegry+strength;
+        var infohealth = desupg*10+50;
+        var infostr = des+1;
+        var infoupg = des*30;
+        var jumpmax = result+total;
+        document.getElementById("txtresult").value = result;
+        document.getElementById("upgrades").value = upgrades;
+        document.getElementById("health").value = health;
+        document.getElementById("energy").value = enegry;
+        document.getElementById("strength").value = strength;
+        document.getElementById("total").value = total;
+        document.getElementById("jumpmax").value = jumpmax;
+        document.getElementById("infolevel").value = des;
+        document.getElementById("infohealth").value = infohealth;
+        document.getElementById("inforenergy").value = infohealth;
+        document.getElementById("infostrength").value = infostr;
+        document.getElementById("infoupgrade").value = infoupg;
+      }
+
+    </script>
+    <script>
+      function TagsToVip() {
+        var tag = parseInt(document.getElementById("tags1").value);
+        var vip = tag*1350/1754;
+        document.getElementById("vip1").value = vip;
+      }
+
+    </script>
+    <script>
+      function VipToTags() {
+        var vip = parseInt(document.getElementById("vip2").value);
+        var tag = vip*1754/1350;
+        document.getElementById("tags2").value = tag;
+      }
+    </script>
+    
+    <script>
+    function ConUpgrade() {
+    var curcon=parseInt(document.getElementById("curcon").value);
+    var wancon=parseInt(document.getElementById("wancon").value);
+    var calkits= (wancon-curcon)/10;
+    var caltag= calkits*12;
+	document.getElementById("upkit").value = calkits;
+    document.getElementById("contag").value = caltag;
+    }
+    </script>
+    
+  </body>
