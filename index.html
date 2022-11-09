@@ -28,7 +28,7 @@
       color: #ccc;
       box-sizing: border-box;
       font-size: 14px;
-      min-width: 100px;
+      min-width: 150px;
     }
 
     h3 {
@@ -184,7 +184,7 @@
     function TagsToVip() {
       var tag = parseInt(document.getElementById("tags1").value);
       var vip = tag * 1350 / 1754;
-      document.getElementById("vip1").value = vip;
+      document.getElementById("vip1").value = vip.toFixed(2);
     }
 
   </script>
@@ -192,7 +192,7 @@
     function VipToTags() {
       var vip = parseInt(document.getElementById("vip2").value);
       var tag = vip * 1754 / 1350;
-      document.getElementById("tags2").value = tag;
+      document.getElementById("tags2").value = tag.toFixed(2);
     }
   </script>
 
